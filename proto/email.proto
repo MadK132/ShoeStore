@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "shoeshop/proto";
+
+import "user.proto";
+import "order.proto";
+
+// Email Service API
+service EmailService {
+  rpc SendRegistrationConfirmation(UserEmailRequest) returns (EmailResponse);
+  rpc SendOrderConfirmation(OrderEmailRequest) returns (EmailResponse);
+  rpc SendOrderStatusUpdate(OrderEmailRequest) returns (EmailResponse);
+  rpc SendPasswordReset(PasswordResetRequest) returns (EmailResponse);
+}
+
+message UserEmailRequest {
+  User user = 1;
+}
+
+message OrderEmailRequest {
+  Order order = 1;
+}
+
+message PasswordResetRequest {
+  User user = 1;
+  string reset_token = 2;
+}
+
+message EmailResponse {
+  bool success = 1;
+} 

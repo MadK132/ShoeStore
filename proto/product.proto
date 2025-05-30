@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "shoeshop/proto";
+
+// Product Service API
+service ProductService {
+  rpc CreateProduct(CreateProductRequest) returns (ProductResponse);
+  rpc GetProduct(GetProductRequest) returns (ProductResponse);
+  rpc UpdateProduct(UpdateProductRequest) returns (ProductResponse);
+  rpc DeleteProduct(DeleteProductRequest) returns (DeleteProductResponse);
+  rpc ListProducts(ListProductsRequest) returns (ListProductsResponse);
+  rpc SearchProducts(SearchProductsRequest) returns (ListProductsResponse);
+}
+
+message Product {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  double price = 4;
+  string category = 5;
+  string brand = 6;
+  repeated string sizes = 7;
+  repeated string colors = 8;
+  repeated string images = 9;
+  int32 stock = 10;
+  string created_at = 11;
+  string updated_at = 12;
+}
+
+message CreateProductRequest {
+  Product product = 1;
+}
+
+message GetProductRequest {
+  string id = 1;
+}
+
+message UpdateProductRequest {
+  Product product = 1;
+}
+
+message ProductResponse {
+  Product product = 1;
+}
+
+message DeleteProductRequest {
+  string id = 1;
+}
+
+message DeleteProductResponse {
+  bool success = 1;
+}
+
+message ListProductsRequest {
+  string category = 1;
+  string brand = 2;
+}
+
+message ListProductsResponse {
+  repeated Product products = 1;
+}
+
+message SearchProductsRequest {
+  string query = 1;
+} 

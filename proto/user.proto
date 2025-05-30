@@ -1,0 +1,85 @@
+syntax = "proto3";
+
+package proto;
+
+option go_package = "shoeshop/proto";
+
+// User Service API
+service UserService {
+  rpc Register(RegisterRequest) returns (UserResponse);
+  rpc Login(LoginRequest) returns (LoginResponse);
+  rpc GetUser(GetUserRequest) returns (UserResponse);
+  rpc GetUserByEmail(GetUserByEmailRequest) returns (UserResponse);
+  rpc UpdateUser(UpdateUserRequest) returns (UserResponse);
+  rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
+  rpc ResetPassword(ResetPasswordRequest) returns (ResetPasswordResponse);
+}
+
+message User {
+  string id = 1;
+  string username = 2;
+  string email = 3;
+  string password_hash = 4;
+  string created_at = 5;
+  string updated_at = 6;
+  string firstName = 7;
+  string lastName = 8;
+  string shippingAddress = 9;
+  string phone = 10;
+  string registration_date = 11;
+  repeated string order_ids = 12;
+  bool is_admin = 13;
+  double balance = 14;
+}
+
+message RegisterRequest {
+  string username = 1;
+  string email = 2;
+  string password = 3;
+  string firstName = 4;
+  string lastName = 5;
+  string phone = 6;
+  string shippingAddress = 7;
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  string token = 1;
+  User user = 2;
+}
+
+message GetUserRequest {
+  string id = 1;
+}
+
+message GetUserByEmailRequest {
+  string email = 1;
+}
+
+message UpdateUserRequest {
+  User user = 1;
+}
+
+message UserResponse {
+  User user = 1;
+}
+
+message DeleteUserRequest {
+  string id = 1;
+}
+
+message DeleteUserResponse {
+  bool success = 1;
+}
+
+message ResetPasswordRequest {
+  string email = 1;
+}
+
+message ResetPasswordResponse {
+  bool success = 1;
+} 
